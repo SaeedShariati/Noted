@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace Noted.Models.Authentication
 {
-    public class User:IdentityUser<string>
+    public class AppUser:IdentityUser<string>
     {
+        public AppUser(string username,string email)
+        {
+            UserName = username;
+            Email = email;
+        }
+        public AppUser() {}
         public ICollection<Note> Notes { get; set; }
         [Required]
         public DateTime Created { get; set; }

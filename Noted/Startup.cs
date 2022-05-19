@@ -33,7 +33,7 @@ namespace Noted
             services.AddDbContext<ApplicationIdentityDbContext>(options => {
                 options.UseSqlServer(Configuration["Data:IdentityDbContext:ConnectionString"]);
                 options.EnableSensitiveDataLogging();});
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = true;
@@ -54,7 +54,7 @@ namespace Noted
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-
+                options.ReturnUrlParameter = "returnUrl";
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenied";

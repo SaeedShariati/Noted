@@ -13,7 +13,7 @@ namespace Noted.Models
         [Key]
         public int NoteId { get; set; }
         [Required]
-        public User Ownder { get; set; }
+        public AppUser Ownder { get; set; }
         public string Topic { get; set; }
         public string Text { get; set; }
         //public string[] Tags { get; set; }

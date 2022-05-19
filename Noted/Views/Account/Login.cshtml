@@ -1,0 +1,22 @@
+﻿@model UserLogin 
+@{
+    ViewBag.Title = "Login";
+}
+@section styles{ 
+<style>
+    input{
+        width:100%;
+    }
+</style>
+}
+<h3 style="text-align:center">Login Page</h3>
+    <form asp-action="Login" asp-controller="Account">
+        <div asp-validation-summary="All"></div>
+        <label asp-for="UserName">Enter Username:</label>
+        <input asp-for="UserName" />
+
+        <label asp-for="Password">Enter Password:</label>
+        <input asp-for="Password" />
+        <button action="post">Submit</button>
+    </form>
+    <p>haven't signed up, yet? Click <a asp-action="SignUP">Here</a></p>
