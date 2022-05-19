@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Noted.Models.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Noted.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Noted
 {
@@ -29,12 +31,14 @@ namespace Noted
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationIdentityDbContext>(options => {
                 options.UseSqlServer(Configuration["Data:IdentityDbContext:ConnectionString"]);
                 options.EnableSensitiveDataLogging();});
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
+                options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = true;
                 options.Password.RequireNonAlphanumeric = false;
@@ -42,7 +46,8 @@ namespace Noted
                 += "شسیبلتانمکگپظطزرذدئوضصثقفغعهخحجچ۰۱۲۳۴۵۶۷۸۹";
                 options.User.RequireUniqueEmail = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            }).AddEntityFrameworkStores<ApplicationIdentityDbContext>();
+            }).AddEntityFrameworkStores<ApplicationIdentityDbContext>()
+            .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider) ;
 
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
