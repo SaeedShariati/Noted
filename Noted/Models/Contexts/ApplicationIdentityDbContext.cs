@@ -25,6 +25,7 @@ namespace Noted.Models
                 entity.HasIndex(e => e.UserName).IsUnique();
             });*/
             builder.Entity<AppUser>().Property(p => p.UserName).IsRequired();
+            builder.Entity<AppUser>().Property(p => p.Id).HasDefaultValueSql("newid()");
             builder.Entity<Note>().Property(p => p.Created).HasDefaultValueSql("getdate()");
         }
     }

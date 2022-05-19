@@ -84,7 +84,6 @@ namespace Noted.Controllers
             if (ModelState.IsValid)
             {
                 AppUser user = new AppUser(userSignIn.UserName,userSignIn.Email);
-                user.Id = Guid.NewGuid().ToString(); //Make a new Id
                 var result = await UserManager.CreateAsync(user, userSignIn.Password);
                 if(result.Succeeded)
                 {
